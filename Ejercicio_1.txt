@@ -1,0 +1,41 @@
+
+----------------------EJERCICIO 1-------------------------------------------------
+What command would you use to count the amount of ocurrences of the word ​ Unix ​ in a 
+file? How would make the command case insensitive?
+Rta: 
+ cat /path_al_archivo |grep -wo -i "palabra" | wc -w
+
+1) Cat: Muestra el contenido del archivo
+2)Grep: busca de ese contenido la ocurrencia de la palabra "palabra". Y las muestra
+- La opcion w busca la palabra exacta dentro del archivo, si se quisiera que se buscara la palabra tambien incluida en otra sub palabra se podria usar la opcion -c)
+- La opcion i ignora case sensitive (EXAMEN  Y examen van a ser contados)
+
+3) A la salida de ese filtro por palabra le aplica el comando wc 
+
+El comando wc sirve simplemente para contar líneas, palabras y caracteres que contiene un archivo.
+-w: Muestra solamente el numero de palabras contenidos en el archivo procesado
+
+
+----------------------EJERCICIO 3---------------------------------------------
+What command would you use to constantly see the last 100 lines appended to a file that 
+contain the word ​ ERROR ​ ? 
+
+El comando a ejecutar seria tail. El comando tail sirve para mostrar en pantalla las últimas líneas de un archivo. Por defecto se muestran las últimas 10 líneas, pero se puede especificar la cantidad con la opcion n.
+Con la opcion f permite que se vayan mostrando las lineas que se van agregando al archivo. Muy util para ver lo que ocurre en los arhivos de log!
+El comando grep busca la palabra error en la salida que se muestra del archivo y muestra esas lineas.
+
+tail -f -n 100 path al archivo | grep ERROR
+
+----------------------EJERCICIO 4---------------------------------------------
+
+4. How would you determine if a processed has died due to OOM error? Si quiero desentenderme puedo utilizarr el comando dmesg para filtrar los errores producidos por memoria onde
+el texto que se escribe es 'killed process'.
+El comando dmesg muestra en la consola una lista con los mensajes del kernel. Como la cantidad de mensajes puede ser muy grande se filtra con el grep.
+dmesg | egrep -i 'killed process'
+
+Si queremos enviar a un archivo estos errores podemos agregar lo siguiente
+
+dmesg | egrep -i 'killed process' > mensajes_del_kernel.txt
+La salida de este comando sino se puede acceder usando el comando cat  /var/log/dmesg
+
+
